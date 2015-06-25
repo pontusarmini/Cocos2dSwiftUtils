@@ -22,9 +22,6 @@
 
 import CoreGraphics
 
-/** The value of π as a CGFloat */
-let π = CGFloat(M_PI)
-
 public extension CGFloat {
   /**
   * Converts an angle in degrees to radians.

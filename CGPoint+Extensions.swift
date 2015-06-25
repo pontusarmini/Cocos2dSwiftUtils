@@ -93,7 +93,18 @@ public extension CGPoint {
   public var angle: CGFloat {
     return atan2(y, x)
   }
-  
+  // MARK: - Random functions
+  /**
+  Random CGPoint within supplied parameters
+  - parameter minX, maxX, minY, maxY: (all CGFloat) Parameters for the random CGPoint
+  - returns: A random CGPoint within the supplied CGSize
+  */
+  public static func random(minX minX: CGFloat, maxX: CGFloat, minY: CGFloat, maxY: CGFloat) -> CGPoint {
+    precondition(minX < maxX)
+    precondition(minY < maxY)
+    let rectangle = CGRect(x: minX, y: maxX, width: maxX-minX, height: maxY-minY)
+    return CGPoint.randomWithinCGRect(rectangle)
+  }
   /**
     Random CGPoint within a CGRect
     - parameter rectangle: A CGRect which the random CGPoint shall be within
@@ -115,17 +126,6 @@ public extension CGPoint {
     return CGPointMake(x, y)
   }
   /**
-  Random CGPoint within supplied parameters
-  - parameter minX, maxX, minY, maxY: (all CGFloat) Parameters for the random CGPoint
-  - returns: A random CGPoint within the supplied CGSize
-  */
-  public static func random(minX minX: CGFloat, maxX: CGFloat, minY: CGFloat, maxY: CGFloat) -> CGPoint {
-    precondition(minX < maxX)
-    precondition(minY < maxY)
-    let rectangle = CGRect(x: minX, y: maxX, width: maxX-minX, height: maxY-minY)
-    return CGPoint.randomWithinCGRect(rectangle)
-  }
-  /**
   Random CGPoint within a circle, defined by radius and center point
   - parameter radius,centerPoint:
   - returns: A random CGPoint within the circle defined by the supplied radius and center point.
@@ -139,7 +139,7 @@ public extension CGPoint {
   }
 
 }
-
+// MARK: - CGPoint operators
 /**
 * Adds two CGPoint values and returns the result as a new CGPoint.
 */

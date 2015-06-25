@@ -22,7 +22,20 @@
 
 
 public extension Bool {
+  /**
+  Random Bool with probability
+  - returns: A random Bool, true or false.
+  */
   public static func random() -> Bool {
     return (arc4random_uniform(2) == 0) ? true : false
+  }
+  /**
+  Random Bool with probability
+  - parameter probability: A CGFloat between 0.0-1.0. Lower value = less probability of the function returning true
+  - returns: A random Bool
+  */
+  public static func randomWithProbability(probability: CGFloat) -> Bool {
+    precondition(probability >= 0 && probability < 1.0)
+    return CGFloat.random() <= probability
   }
 }
