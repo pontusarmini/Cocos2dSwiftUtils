@@ -8,7 +8,7 @@
 
 
 public extension Bool {
-  public func random() -> Bool {
+  public static func random() -> Bool {
     return (arc4random_uniform(2) == 0) ? true : false
   }
 }
