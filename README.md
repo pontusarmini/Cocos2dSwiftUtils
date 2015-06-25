@@ -1,6 +1,6 @@
 # Cocos2D Swift Utils #
 
-![Cocos2d Swift Utils Icon](http://pontusarmini.com/content/images/2015/06/icon.png#img-originsize)
+![Cocos2d Swift Utils Icon](http://pontusarmini.com/content/images/2015/06/icon2.png)
 
 A collection of Cocos2d-Spritebuilder/ObjC helper classes and functions. Swift only.
 
