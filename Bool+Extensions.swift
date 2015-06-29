@@ -23,7 +23,7 @@
 
 public extension Bool {
   /**
-  Random Bool with probability
+  Random Bool
   - returns: A random Bool, true or false.
   */
   public static func random() -> Bool {

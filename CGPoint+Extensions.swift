@@ -102,9 +102,9 @@ public extension CGPoint {
   }
   // MARK: - Random functions
   /**
-  Random CGPoint within supplied parameters
+  A random CGPoint holding a coordinate within the supplied parameters
   - parameter minX, maxX, minY, maxY: (all CGFloat) Parameters for the random CGPoint
-  - returns: A random CGPoint within the supplied CGSize
+  - returns: A random CGPoint within the supplied parameters.
   */
   public static func random(minX minX: CGFloat, maxX: CGFloat, minY: CGFloat, maxY: CGFloat) -> CGPoint {
     precondition(minX < maxX)
@@ -113,7 +113,7 @@ public extension CGPoint {
     return CGPoint.randomWithinCGRect(rectangle)
   }
   /**
-    Random CGPoint within a CGRect
+    A random CGPoint coordinate within a supplied CGRect
     - parameter rectangle: A CGRect which the random CGPoint shall be within
     - returns: A random CGPoint within the supplied CGRect
   */
@@ -128,9 +128,10 @@ public extension CGPoint {
   - returns: A random CGPoint within the supplied CGRect
   */
   public mutating func randomWithinCGRect(rectangle:CGRect) -> CGPoint {
-    let x = CGFloat.random(min: rectangle.minX, max: rectangle.maxX)
-    let y = CGFloat.random(min: rectangle.minY, max: rectangle.maxY)
-    self = CGPoint(x: x, y: y);
+    let nx = CGFloat.random(min: rectangle.minX, max: rectangle.maxX)
+    let ny = CGFloat.random(min: rectangle.minY, max: rectangle.maxY)
+    x = nx
+    y = ny
     return self
   }
   /**
@@ -149,14 +150,15 @@ public extension CGPoint {
   - returns: A random CGPoint within the supplied CGSize
   */
   public mutating func randomWithinCGSize(size:CGSize) -> CGPoint {
-    let x = CGFloat.random(min: 0.0, max: size.width)
-    let y = CGFloat.random(min: 0.0, max: size.height)
-    self = CGPointMake(x, y)
+    let nx = CGFloat.random(min: 0.0, max: size.width)
+    let ny = CGFloat.random(min: 0.0, max: size.height)
+    self = CGPointMake(nx, ny)
     return self
   }
   /**
   Random CGPoint within a circle, defined by a radius and a center point
-  - parameter radius,centerPoint:
+  - parameter radius: The radius of the wanted circle
+  - parameter centerPoint: The center of the wanted circle.
   - returns: A random CGPoint within the circle defined by the supplied radius and center point.
   */
   public static func randomWithinCircleWithRadius(radius:CGFloat, andCenterPoint centerPoint:CGPoint) -> CGPoint {
@@ -168,7 +170,8 @@ public extension CGPoint {
   }
   /**
   Mutate a CGPoint to a random point within a circle, defined by a radius and a center point
-  - parameter radius,centerPoint:
+  - parameter radius: The radius of the wanted circle
+  - parameter centerPoint: The center of the wanted circle.
   - returns: A random CGPoint within the circle defined by the supplied radius and center point.
   */
   public mutating func randomWithinCircleWithRadius(radius:CGFloat, andCenterPoint centerPoint:CGPoint) -> CGPoint {

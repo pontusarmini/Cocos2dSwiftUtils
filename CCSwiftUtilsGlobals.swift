@@ -1,14 +1,12 @@
 //
-//  UsefulGlobals.swift
+//  CCSwiftUtilsGlobals.swift
 //  Cocos2dSwiftUtils
 //
-//  Created by pontus armini on 2015-06-25.
+//  Created by pontus armini on 2015-06-30.
 //  Copyright © 2015 Pontus Armini. All rights reserved.
 //
 
 
-
-/** The value of π as a CGFloat */
 let π = CGFloat(M_PI)
 
 /**
