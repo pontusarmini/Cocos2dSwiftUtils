@@ -31,9 +31,13 @@ public extension CCActionInterval {
     return easing.easedAction(self, periodRate: r)
   }
   
-  public func thenRun(block: CallBackBlock) -> CCActionInterval {
+  public func thenDo(block: CallBackBlock) -> CCActionInterval {
     let c = CCActionCallBlock(block: block)
     let s = CCActionSequence(one: self, two: c)
+    return s
+  }
+  public func chainedWithAction(action: CCActionInterval) -> CCActionInterval {
+    let s = CCActionSequence(one: self, two: action)
     return s
   }
   private var isNotSequence: Bool {

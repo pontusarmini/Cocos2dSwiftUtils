@@ -46,7 +46,7 @@ public extension CCNode {
   - parameter actions: An array of CCActions
   - parameter block: A block of code to run when the sequence is finished running
   */
-  public func runSequenceOfActions(actions: [CCActionFiniteTime], thenRun block: CallBackBlock) {
+  public func runSequenceOfActions(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
     var a = actions
     let c = CCActionCallBlock(block: block)
     a.append(c)
@@ -70,7 +70,7 @@ public extension CCNode {
   - parameter times: The number of times to repeat the sequence
   - parameter block: A block of code to run when the repeated sequence is finished running
   */
-  public func runSequenceOfActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenRun block:CallBackBlock) {
+  public func runSequenceOfActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenDo block:CallBackBlock) {
     var a = actions
     let c = CCActionCallBlock(block: block)
     a.append(c)
@@ -100,7 +100,7 @@ public extension CCNode {
   - parameter actions: An array of CCActions
   - parameter block: A block of code to run when all of the actions has finished running
   */
-  public func runParallelActions(actions: [CCActionFiniteTime], thenRun block: CallBackBlock) {
+  public func runParallelActions(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
     let spawn = CCActionSpawn(array: actions)
     let c = CCActionCallBlock(block: block)
     let a = [spawn, c]
@@ -111,7 +111,7 @@ public extension CCNode {
   - parameter action: The action to run
   - parameter block: The callback to run after the action as finished running
   */
-  public func runAction(action:CCActionInterval, thenRun block: CallBackBlock) {
+  public func runAction(action:CCActionInterval, thenDo block: CallBackBlock) {
     let c = CCActionCallBlock(block: block)
     let s = CCActionSequence(one: action, two: c)
     runAction(s)
@@ -147,7 +147,7 @@ public extension CCNode {
   - parameter action: The action to run (must be a CCActionFiniteTime subclass)
   - parameter times: The number of times to repeat the action
   */
-  public func runAction(action:CCActionFiniteTime, andRepeatTimes times: Int, thenRun block: CallBackBlock) {
+  public func runAction(action:CCActionFiniteTime, andRepeatTimes times: Int, thenDo block: CallBackBlock) {
     let repeatAction = CCActionRepeat(action: action, times: UInt(times))
     let call = CCActionCallBlock(block: block)
     let actions = [repeatAction, call]

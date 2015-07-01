@@ -335,6 +335,21 @@ public func /= (inout left: CGPoint, right: CGVector) {
   left = left / right
 }
 
+public typealias PointTuple = (x:CGFloat, y:CGFloat)
+
+public func - (left:CGPoint, right: PointTuple) -> CGPoint {
+  return CGPoint(x: left.x - right.x, y: left.y - right.y)
+}
+public func + (left:CGPoint, right: PointTuple) -> CGPoint {
+  return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+public func -= (inout left:CGPoint, right: PointTuple) {
+  left = left - right
+}
+public func += (inout left:CGPoint, right: PointTuple) {
+  left = left + right
+}
+
 /**
 * Performs a linear interpolation between two CGPoint values.
 */
