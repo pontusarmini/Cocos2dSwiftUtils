@@ -100,6 +100,14 @@ public extension CGPoint {
   public var angleInDegrees: CGFloat {
     return self.angle * (180.0/π)
   }
+  /**
+  * Returns the angle in degrees of the vector described by the CGPoint.
+  * The range of the angle is -180 to 180; an angle of 0 points to the right.
+  */
+  public func angleBetweenSelfAndPoint(point:CGPoint) -> Float {
+    var vector = point - self
+    return -Float(vector.normalize().angleInDegrees)
+  }
   // MARK: - Random functions
   /**
   A random CGPoint holding a coordinate within the supplied parameters
@@ -152,7 +160,7 @@ public extension CGPoint {
   public mutating func randomWithinCGSize(size:CGSize) -> CGPoint {
     let nx = CGFloat.random(min: 0.0, max: size.width)
     let ny = CGFloat.random(min: 0.0, max: size.height)
-    self = CGPointMake(nx, ny)
+    self = CGPoint(x: nx, y: ny)
     return self
   }
   /**

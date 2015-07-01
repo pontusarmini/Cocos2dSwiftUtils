@@ -20,22 +20,29 @@
 * THE SOFTWARE.
 */
 
-
-public extension Bool {
-  /**
-  Random Bool
-  - returns: A random Bool, true or false.
-  */
-  public static func random() -> Bool {
-    return (arc4random_uniform(2) == 0) ? true : false
+public extension CCActionInterval {
+  
+  public func easedWith(easing: EasingType) -> CCActionEase {
+    assert(isNotSequence, "Applying easing on a sequence might give unexpected results")
+    return easing.easedAction(self, periodRate: nil)
   }
-  /**
-  Random Bool with probability
-  - parameter probability: A CGFloat between 0.0-1.0. Lower value = less probability of the function returning true
-  - returns: A random Bool
-  */
-  public static func randomWithProbability(probability: Double) -> Bool {
-    precondition(probability >= 0 && probability < 1.0)
-    return CGFloat.random() <= CGFloat(probability)
+  public func easedWith(easing: EasingType, andPeriodOrRate r: Float?) -> CCActionEase {
+    assert(isNotSequence, "Applying easing on a sequence might give unexpected results")
+    return easing.easedAction(self, periodRate: r)
   }
+  
+  public func thenRun(block: CallBackBlock) -> CCActionInterval {
+    let c = CCActionCallBlock(block: block)
+    let s = CCActionSequence(one: self, two: c)
+    return s
+  }
+  private var isNotSequence: Bool {
+    if let _ = self as? CCActionSequence {
+      return false
+    } else {
+      return true
+    }
+  }
+  
 }
+
