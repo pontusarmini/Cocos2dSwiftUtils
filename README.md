@@ -10,12 +10,18 @@ This repo is currently under construction.
 
 Example usage (more to come soon):
 
+###Running Actions###
+
 ```swift
 
 //Setup a CCAction with applied easing (CCActionEaseElasticOut in this case) and a callback
-let scaleUp = CCActionScaleBy(duration: 1.0, scale: 3.0).easedWith(.ElasticOut).thenRun {
+let scaleUp = CCActionScaleBy(duration: 1.0, scale: 3.0).easedWith(.ElasticOut).thenDo {
     print("Scale up is done!")
 }
+//Chain actions
+myNode.runAction(action1.chainedWith(action2).thenDo {
+  print("Done running chained actions")
+})
 
 //Run an action repeated times (with optional callback)
 myNode.runAction(scaleUp, andRepeatTimes: 4){ 
