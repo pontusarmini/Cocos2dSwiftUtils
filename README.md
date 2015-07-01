@@ -12,7 +12,7 @@ Example usage (more to come soon):
 
 ```swift
 
-//Setup a CCAction with applied easing (CCActionEaseElasitcOut in this case) and a callback
+//Setup a CCAction with applied easing (CCActionEaseElasticOut in this case) and a callback
 let scaleUp = CCActionScaleBy(duration: 1.0, scale: 3.0).easedWith(.ElasticOut).thenRun {
     print("Scale up is done!")
 }
@@ -25,6 +25,22 @@ myNode.runAction(scaleUp, andRepeatTimes: 4){
 //Run a sequence of actions 
 let actions = [action1, action2, action3, action4]
 myNode.runSequenceOfActions(actions)
+
+//Run a sequence of actions and a callback when done
+myNode.runSequenceOfActions(actions) {
+  print("Sequence is done running!")
+}
+
+//Run a sequence to be repeated forever
+myNode.runSequenceOfActionsAndRepeatForever(actions)
+
+//Run actions simultaneously
+myNode.runParallelActions(actions)
+
+//Run actions simultaneously with a callback when done
+myNode.runParallelActions(actions) {
+  print("All actions are done")
+}
 
 ```
 
