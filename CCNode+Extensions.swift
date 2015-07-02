@@ -176,9 +176,11 @@ public extension CCNode {
   If you want to repeat an eased action, use the [CCActionInterval](../Extensions/CCActionInterval.html) extension `easedWith(_:)` or `easedWith(_:periodOrRate:)` in combination with for example `runAction(_:andRepatTimes:)`
   
   **Example usage:**
+  
   ```
-  let blinkEased = CCActionBlink(duration: 1.0, blinks: 4).easedWith(.SineOut)
-  runAction(blinkEased, andRepeatTimes: 10)
+    let blinkEased = CCActionBlink(duration: 1.0, blinks: 4).easedWith(.SineOut)
+    runAction(blinkEased, andRepeatTimes: 10)
+  
   ```
   
 
@@ -197,9 +199,10 @@ public extension CCNode {
   If you want to repeat an eased action, use the [CCActionInterval](../Extensions/CCActionInterval.html) extension `easedWith(_:)` or `easedWith(_:periodOrRate:)` in combination with for example `runAction(_:andRepatTimes:)`
   
   **Example usage:**
+  
   ```
-  let easedMove = CCActionMoveTo(duration: 5.0, position: pos).easedWith(.EaseIn, periodOrRate: 3.0)
-  runAction(easedMove, andRepeatTimes: 10)
+    let easedMove = CCActionMoveTo(duration: 5.0, position: pos).easedWith(.EaseIn, periodOrRate: 3.0)
+    runAction(easedMove, andRepeatTimes: 10)
   ```
   
   :param: action The action to run (must be a CCActionInterval subclass)

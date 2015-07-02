@@ -40,7 +40,7 @@ public extension CCActionInterval {
   */
   
   public func easedWith(easing: EasingType) -> CCActionEase {
-    assert(isNotSequence, "Applying easing on a sequence might give unexpected results")
+     assert(isNotSequence, "Applying easing on a sequence might give unexpected results. If you are using .delayedWith before .easedWith, try swapping their positions")
     return easing.easedAction(self, periodRate: nil)
   }
   
@@ -62,7 +62,7 @@ public extension CCActionInterval {
   */
   
   public func easedWith(easing: EasingType, periodOrRate r: Float?) -> CCActionEase {
-    assert(isNotSequence, "Applying easing on a sequence might give unexpected results")
+    assert(isNotSequence, "Applying easing on a sequence might give unexpected results. If you are using .delayedWith before .easedWith, try swapping their positions")
     return easing.easedAction(self, periodRate: r)
   }
   
@@ -100,14 +100,11 @@ public extension CCActionInterval {
   let actionWithCallback = CCActionScaleTo(duration: 1.0, scale:10.0).thenDo {
       print("Now I am super big!")
   }
-  
   //Without trailing closure syntax
   let actionWithCallback = CCActionScaleTo(duration: 1.0, scale:10.0).thenDo({
       print("Now I am super big!")
   })
-  
   //Or
-  
   myNode.runAction(myAction.thenDo(myCallBack))
   
   ```
@@ -121,6 +118,15 @@ public extension CCActionInterval {
     let c = CCActionCallBlock(block: block)
     let s = CCActionSequence(one: self, two: c)
     return s
+  }
+  
+  public func delayedWith(delay: CCTime) -> CCActionInterval {
+    let d = CCActionDelay(duration: delay)
+    let s = CCActionSequence(one: self, two: d)
+    return s
+  }
+  public var and:CCActionInterval {
+    return self
   }
   
   /**
