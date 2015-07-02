@@ -19,14 +19,17 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-
-
+///Does this work then?
+///
+///
+///I'm not sure
 public extension CCNode {
   
   /**
   Run a block of code after specified delay
-  - parameter delay: The time to pass before running the block. 
-  - parameter runBlock: The block of code to run.
+  
+  :param: delay The time to pass before running the block. 
+  :param: runBlock The block of code to run.
   */
   public func afterDelay(delay: CCTime, runBlock: CallBackBlock) {
     let delayAction = CCActionDelay(duration: delay)
@@ -35,7 +38,8 @@ public extension CCNode {
   }
   /**
   Run an array of actions in a sequence
-  - parameter actions: An array of CCActions
+  
+  :param: actions An array of CCActions
   */
   public func runSequenceOfActions(actions: [CCActionFiniteTime]) {
     let sequence = CCActionSequence(array: actions)
@@ -43,8 +47,9 @@ public extension CCNode {
   }
   /**
   Run an array of actions in a sequence
-  - parameter actions: An array of CCActions
-  - parameter block: A block of code to run when the sequence is finished running
+  
+  :param: actions An array of CCActions
+  :param: block A block of code to run when the sequence is finished running
   */
   public func runSequenceOfActions(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
     var a = actions
@@ -56,8 +61,9 @@ public extension CCNode {
   
   /**
   Run an array of actions in a sequence and repeat n number of times
-  - parameter actions: An array of CCActions
-  - parameter times: The number of times to repeat the sequence
+  
+  :param: actions An array of CCActions
+  :param: times The number of times to repeat the sequence
   */
   public func runSequenceOfActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int) {
     let sequence = CCActionSequence(array: actions)
@@ -66,9 +72,10 @@ public extension CCNode {
   }
   /**
   Run an array of actions in a sequence and repeat n number of times, then run a block of code
-  - parameter actions: An array of CCActions
-  - parameter times: The number of times to repeat the sequence
-  - parameter block: A block of code to run when the repeated sequence is finished running
+  
+  :param: actions An array of CCActions
+  :param: times The number of times to repeat the sequence
+  :param: block A block of code to run when the repeated sequence is finished running
   */
   public func runSequenceOfActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenDo block:CallBackBlock) {
     var a = actions
@@ -80,7 +87,8 @@ public extension CCNode {
   }
   /**
   Run an array of actions in a sequence and repeat forever
-  - parameter actions: An array of CCActions
+  
+  :param: actions An array of CCActions
   */
   public func runSequenceOfActionsAndRepeatForever(actions: [CCActionFiniteTime]) {
     let sequence = CCActionSequence(array: actions)
@@ -89,7 +97,8 @@ public extension CCNode {
   }
   /**
   Run an array of actions simultaneously
-  - parameter actions: An array of CCActions
+  
+  :param: actions An array of CCActions
   */
   public func runParallelActions(actions: [CCActionFiniteTime]) {
     let spawn = CCActionSpawn(array: actions)
@@ -97,8 +106,9 @@ public extension CCNode {
   }
   /**
   Run an array of actions simultaneously, then run a block of code
-  - parameter actions: An array of CCActions
-  - parameter block: A block of code to run when all of the actions has finished running
+  
+  :param: actions An array of CCActions
+  :param: block A block of code to run when all of the actions has finished running
   */
   public func runParallelActions(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
     let spawn = CCActionSpawn(array: actions)
@@ -107,9 +117,52 @@ public extension CCNode {
     runSequenceOfActions(a)
   }
   /**
+  Run an array of actions simultaneously and repeat n number of times
+  
+  :param: actions An array of CCActions
+  :param: times The number of times to repeat the actions
+  */
+  public func runParallelActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int) {
+    let spawn = CCActionSpawn(array: actions)
+    let repeatAction = CCActionRepeat(action: spawn, times: UInt(times))
+    runAction(repeatAction)
+  }
+  
+  /**
+  Run an array of actions simultaneously and repeat n number of times, then run callback
+  
+  :param: actions An array of CCActions
+  :param: times The number of times to repeat the actions
+  :param: block The callback to run when the actions are done 
+  */
+  public func runParallelActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenDo block: CallBackBlock) {
+    let spawn = CCActionSpawn(array: actions)
+    let repeatAction = CCActionRepeat(action: spawn, times: UInt(times))
+    let c = CCActionCallBlock(block: block)
+    let a = [repeatAction, c]
+    runSequenceOfActions(a)
+  }
+  
+  /**
+  Run an array of actions simultaneously and repeat forever
+  
+  :param: actions An array of CCActions
+  :param: times The number of times to repeat the actions
+  :param: block The callback to run when the actions are done
+  */
+  public func runParallelActionsAndRepeatForever(actions: [CCActionFiniteTime]) {
+    let spawn = CCActionSpawn(array: actions)
+    let repeatAction = CCActionRepeatForever(action: spawn)
+
+    runAction(repeatAction)
+  }
+
+  
+  /**
   Run an action and then a callback block
-  - parameter action: The action to run
-  - parameter block: The callback to run after the action as finished running
+  
+  :param: action The action to run
+  :param: block The callback to run after the action as finished running
   */
   public func runAction(action:CCActionInterval, thenDo block: CallBackBlock) {
     let c = CCActionCallBlock(block: block)
@@ -117,26 +170,49 @@ public extension CCNode {
     runAction(s)
   }
   /**
-  Run an action with easing (CCActionEase).
-  - parameter action: The action to run (must be a CCActionInterval subclass) 
-  - parameter easing: The easing type (defined by the custom EasingType enum that matches the different easing subclasses, example usage: .BounceIn).
-  - parameter periodOrRate: An optional period or rate float value. This argument is only applicable on easing types for which you can specify either a rate or period. Pass nil if not needed.
+  Run an action with easing — a CCActionEase subclass.
+  
+  ####Repeating
+  If you want to repeat an eased action, use the [CCActionInterval](../Extensions/CCActionInterval.html) extension `easedWith(_:)` or `easedWith(_:periodOrRate:)` in combination with for example `runAction(_:andRepatTimes:)`
+  
+  **Example usage:**
+  ```
+  let blinkEased = CCActionBlink(duration: 1.0, blinks: 4).easedWith(.SineOut)
+  runAction(blinkEased, andRepeatTimes: 10)
+  ```
+  
+
+  
+  :param: action The action to run (must be a CCActionInterval subclass)
+  :param: easing The easing type (defined by the custom EasingType enum that matches the different easing subclasses, example usage: .BounceIn).
+  :param: periodOrRate An optional period or rate float value. This argument is only applicable on easing types for which you can specify either a rate or period. Pass nil if not needed.
   */
   public func runAction(action:CCActionInterval, withEasing easing: EasingType, andPeriodOrRate r: Float?) {
     runAction(easing.easedAction(action, periodRate: r))
   }
   /**
-  Run an action with easing (CCActionEase). If you need to specify a rate or period, use `runAction:withEasing:andPeriodOrRate:`
-  - parameter action: The action to run (must be a CCActionInterval subclass)
-  - parameter easing: The easing type (defined by the custom EasingType enum that matches the different easing subclasses, example usage: .BounceIn).
+  Run an action with easing (CCActionEase). If you need to specify a rate or period, use `runAction(_:withEasing:andPeriodOrRate:)`
+  
+  ####Repeating
+  If you want to repeat an eased action, use the [CCActionInterval](../Extensions/CCActionInterval.html) extension `easedWith(_:)` or `easedWith(_:periodOrRate:)` in combination with for example `runAction(_:andRepatTimes:)`
+  
+  **Example usage:**
+  ```
+  let easedMove = CCActionMoveTo(duration: 5.0, position: pos).easedWith(.EaseIn, periodOrRate: 3.0)
+  runAction(easedMove, andRepeatTimes: 10)
+  ```
+  
+  :param: action The action to run (must be a CCActionInterval subclass)
+  :param: easing The easing type (defined by the custom EasingType enum that matches the different easing subclasses, example usage: .BounceIn).
   */
   public func runAction(action:CCActionInterval, withEasing easing: EasingType) {
     runAction(easing.easedAction(action, periodRate: nil))
   }
   /**
   Run an action and repeat it a number of times
-  - parameter action: The action to run (must be a CCActionFiniteTime subclass)
-  - parameter times: The number of times to repeat the action
+  
+  :param: action The action to run (must be a CCActionFiniteTime subclass)
+  :param: times The number of times to repeat the action
   */
   public func runAction(action:CCActionFiniteTime, andRepeatTimes times: Int) {
     let repeatAction = CCActionRepeat(action: action, times: UInt(times))
@@ -144,8 +220,9 @@ public extension CCNode {
   }
   /**
   Run an action and repeat it a number of times, then run a block of code
-  - parameter action: The action to run (must be a CCActionFiniteTime subclass)
-  - parameter times: The number of times to repeat the action
+  
+  :param: action The action to run (must be a CCActionFiniteTime subclass)
+  :param: times The number of times to repeat the action
   */
   public func runAction(action:CCActionFiniteTime, andRepeatTimes times: Int, thenDo block: CallBackBlock) {
     let repeatAction = CCActionRepeat(action: action, times: UInt(times))
@@ -155,7 +232,8 @@ public extension CCNode {
   }
   /**
   Run an action and repeat it forever
-  - parameter action: The action to run (must be a CCActionInterval subclass)
+  
+  :param: action The action to run (must be a CCActionInterval subclass)
   */
   public func runActionAndRepeatForever(action:CCActionInterval) {
     let repeatAction = CCActionRepeatForever(action: action)

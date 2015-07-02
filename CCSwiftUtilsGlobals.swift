@@ -11,19 +11,28 @@ public typealias CallBackBlock = Void -> ()
 let π = CGFloat(M_PI)
 
 /**
-Ensures that the value stays between the given values, inclusive. Works with all types that conforms to the Comparable protocol.
-- parameter value, min, max: The value to clamp, minimum allowed value and maximum allowed value.
-- returns: A clamped value
+Ensures that the value stays between the given min/max values, inclusive. Works with all types that conforms to the `Comparable` protocol.
+
+**Usage:**
+
+```
+var myValue = 20
+myValue = clamp(myValue, min: 50, max: 100) //Now 50
+```
+
+:param: value The value (must conform to the Comparabel protocol) to be clamped
+:param: min   The minium value to return
+:param: max   The maximum value to return
+:returns:     The clamped value.
+
 */
 public func clamp<T:Comparable> (value: T, min: T, max: T ) -> T {
   return Swift.max(min, Swift.min(max, value))
 }
-
+/**
+  An enum used to wrap an action inside a CCActionEase subclass.
+*/
 public enum EasingType {
-  
-  /**
-    Enum used to specify which CCActionEase subclass to apply.
-  */
   
   case BackIn
   case BackInOut
@@ -36,7 +45,6 @@ public enum EasingType {
   case ElasticIn
   case ElasticInOut
   case ElasticOut
-  case EaseRate
   case EaseIn
   case EaseInOut
   case EaseOut
@@ -44,7 +52,22 @@ public enum EasingType {
   case SineInOut
   case SineOut
   
-  func easedAction(action:CCActionInterval, periodRate:Float?) -> CCActionEase {
+  /**
+    This function returns an action wrapped in an easing action.
+  
+  **Example usage:**
+  
+  ```
+  let easingType:EasingType = .SineIn
+  let moveAction = CCActionMoveTo(duration: 2.0, position: destination)
+  let easedMoveAction = easingType.easedAction(moveAction, periodRate: nil)
+  ```
+  
+  :param: action The action that you want to be eased.
+  :param: periodRate An optional float value. Can be used with the easing actions that can be controlled with a period or rate.
+  :returns: An action wrapped inside a CCActionEase subclass
+  */
+  public func easedAction(action:CCActionInterval, periodRate:Float?) -> CCActionEase {
     
     switch self {
     case .BackIn:
@@ -84,12 +107,6 @@ public enum EasingType {
         return CCActionEaseElasticOut(action: action, period: period)
       } else {
         return CCActionEaseElasticOut(action: action)
-      }
-    case .EaseRate:
-      if let rate = periodRate {
-        return CCActionEaseRate(action: action, rate: rate)
-      } else {
-        return CCActionEaseRate(action: action)
       }
     case .EaseIn:
       if let rate = periodRate {

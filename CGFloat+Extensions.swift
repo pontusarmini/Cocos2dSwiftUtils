@@ -24,21 +24,30 @@ import CoreGraphics
 
 public extension CGFloat {
   /**
-  * Converts an angle in degrees to radians.
+   Converts an angle in degrees to radians.
+  
+  :returns: A radian angle
+  
   */
   public func degreesToRadians() -> CGFloat {
     return π * self / 180.0
   }
   
   /**
-  * Converts an angle in radians to degrees.
+   Converts an angle in radians to degrees.
+  
+  :returns: A degree angle
   */
   public func radiansToDegrees() -> CGFloat {
     return self * 180.0 / π
   }
   
   /**
-  * Ensures that the float value stays between the given values, inclusive.
+    Ensures that the float value stays between the given min, max values, inclusive.
+    
+    :param: v1  Minimum value to return
+    :param: v2  Maximum value to return
+    :returns: A clamped version of self
   */
   public func clamped(v1: CGFloat, _ v2: CGFloat) -> CGFloat {
     let min = v1 < v2 ? v1 : v2
@@ -47,7 +56,11 @@ public extension CGFloat {
   }
   
   /**
-  * Ensures that the float value stays between the given values, inclusive.
+   Ensures that the float value stays between the given values, inclusive.
+    
+  :param: v1  Minimum value to return
+  :param: v2  Maximum value to return
+  :returns: A clamped version of self, mutating self in the process
   */
   public mutating func clamp(v1: CGFloat, _ v2: CGFloat) -> CGFloat {
     self = clamped(v1, v2)
@@ -55,21 +68,29 @@ public extension CGFloat {
   }
   
   /**
-  * Returns 1.0 if a floating point value is positive; -1.0 if it is negative.
+   Returns 1.0 if a floating point value is positive; -1.0 if it is negative.
+  
+  :returns: Returns 1.0 if a floating point value is positive; -1.0 if it is negative.
   */
   public func sign() -> CGFloat {
     return (self >= 0.0) ? 1.0 : -1.0
   }
   
   /**
-  * Returns a random floating point number between 0.0 and 1.0, inclusive.
+   Returns a random floating point number between 0.0 and 1.0, inclusive.
+  
+  :returns: Returns a random floating point number between 0.0 and 1.0, inclusive.
   */
   public static func random() -> CGFloat {
     return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
   }
   
   /**
-  * Returns a random floating point number in the range min...max, inclusive.
+    Returns a random floating point number in the range min...max, inclusive.
+  
+    :param: min Minimum random value
+    :param: max Maximum random value
+    :returns: Returns a random floating point number in the range min...max, inclusive.
   */
   public static func random(min min: CGFloat, max: CGFloat) -> CGFloat {
     assert(min < max)
@@ -77,7 +98,8 @@ public extension CGFloat {
   }
   
   /**
-  * Randomly returns either 1.0 or -1.0.
+    Randomly returns either 1.0 or -1.0.
+    :returns: Randomly returns either 1.0 or -1.0.
   */
   public static func randomSign() -> CGFloat {
     return (arc4random_uniform(2) == 0) ? 1.0 : -1.0
@@ -85,8 +107,11 @@ public extension CGFloat {
 }
 
 /**
-* Returns the shortest angle between two angles. The result is always between
-* -π and π.
+  Returns the shortest angle between two angles. The result is always between -π and π.
+
+  :param: angle1 The first angle
+  :param: angle2 The second angle
+  :returns: Shortest angle (between -π and π) between the two supplied angles
 */
 public func shortestAngleBetween(angle1: CGFloat, angle2: CGFloat) -> CGFloat {
   let twoπ = π * 2.0

@@ -111,8 +111,13 @@ public extension CGPoint {
   // MARK: - Random functions
   /**
   A random CGPoint holding a coordinate within the supplied parameters
-  - parameter minX, maxX, minY, maxY: (all CGFloat) Parameters for the random CGPoint
-  - returns: A random CGPoint within the supplied parameters.
+  
+  :param: minX Minimum x value
+  :param: maxX Maximum x value
+  :param: minY Minimum y value
+  :param: maxY Maximum y value
+  
+  :returns: A random CGPoint within the supplied parameters.
   */
   public static func random(minX minX: CGFloat, maxX: CGFloat, minY: CGFloat, maxY: CGFloat) -> CGPoint {
     precondition(minX < maxX)
@@ -122,8 +127,9 @@ public extension CGPoint {
   }
   /**
     A random CGPoint coordinate within a supplied CGRect
-    - parameter rectangle: A CGRect which the random CGPoint shall be within
-    - returns: A random CGPoint within the supplied CGRect
+  
+    :param: rectangle A CGRect which the random CGPoint shall be within
+    :returns: A random CGPoint within the supplied CGRect
   */
   public static func randomWithinCGRect(rectangle:CGRect) -> CGPoint {
     let x = CGFloat.random(min: rectangle.minX, max: rectangle.maxX)
@@ -132,8 +138,9 @@ public extension CGPoint {
   }
   /**
   Mutate a CGPoint to a random point within a CGRect
-  - parameter rectangle: A CGRect which the random CGPoint shall be within
-  - returns: A random CGPoint within the supplied CGRect
+  
+  :param: rectangle A CGRect which the random CGPoint shall be within
+  :returns: A random CGPoint within the supplied CGRect
   */
   public mutating func randomWithinCGRect(rectangle:CGRect) -> CGPoint {
     let nx = CGFloat.random(min: rectangle.minX, max: rectangle.maxX)
@@ -144,8 +151,9 @@ public extension CGPoint {
   }
   /**
   Random CGPoint within a CGSize
-  - parameter size: A CGSize which the random CGPoint shall be within
-  - returns: A random CGPoint within the supplied CGSize
+  
+  :param: size A CGSize which the random CGPoint shall be within
+  :returns: A random CGPoint within the supplied CGSize
   */
   public static func randomWithinCGSize(size:CGSize) -> CGPoint {
     let x = CGFloat.random(min: 0.0, max: size.width)
@@ -154,8 +162,9 @@ public extension CGPoint {
   }
   /**
   Mutate a CGPoint to a random point within a CGSize
-  - parameter size: A CGSize which the random CGPoint shall be within
-  - returns: A random CGPoint within the supplied CGSize
+  
+  :param: size A CGSize which the random CGPoint shall be within
+  :returns: A random CGPoint within the supplied CGSize
   */
   public mutating func randomWithinCGSize(size:CGSize) -> CGPoint {
     let nx = CGFloat.random(min: 0.0, max: size.width)
@@ -165,9 +174,10 @@ public extension CGPoint {
   }
   /**
   Random CGPoint within a circle, defined by a radius and a center point
-  - parameter radius: The radius of the wanted circle
-  - parameter centerPoint: The center of the wanted circle.
-  - returns: A random CGPoint within the circle defined by the supplied radius and center point.
+  
+  :param: radius The radius of the wanted circle
+  :param: centerPoint The center of the wanted circle.
+  :returns: A random CGPoint within the circle defined by the supplied radius and center point.
   */
   public static func randomWithinCircleWithRadius(radius:CGFloat, andCenterPoint centerPoint:CGPoint) -> CGPoint {
     let r = CGFloat.random(min: 0.0, max: radius)
@@ -178,9 +188,10 @@ public extension CGPoint {
   }
   /**
   Mutate a CGPoint to a random point within a circle, defined by a radius and a center point
-  - parameter radius: The radius of the wanted circle
-  - parameter centerPoint: The center of the wanted circle.
-  - returns: A random CGPoint within the circle defined by the supplied radius and center point.
+  
+  :param: radius The radius of the wanted circle
+  :param: centerPoint The center of the wanted circle.
+  :returns: A random CGPoint within the circle defined by the supplied radius and center point.
   */
   public mutating func randomWithinCircleWithRadius(radius:CGFloat, andCenterPoint centerPoint:CGPoint) -> CGPoint {
     let r = CGFloat.random(min: 0.0, max: radius)
@@ -192,166 +203,12 @@ public extension CGPoint {
   }
 
 }
-// MARK: - CGPoint operators
-/**
-* Adds two CGPoint values and returns the result as a new CGPoint.
-*/
-public func + (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x + right.x, y: left.y + right.y)
-}
 
 /**
-* Increments a CGPoint with the value of another.
-*/
-public func += (inout left: CGPoint, right: CGPoint) {
-  left = left + right
-}
-
-/**
-* Adds a CGVector to this CGPoint and returns the result as a new CGPoint.
-*/
-public func + (left: CGPoint, right: CGVector) -> CGPoint {
-  return CGPoint(x: left.x + right.dx, y: left.y + right.dy)
-}
-
-/**
-* Increments a CGPoint with the value of a CGVector.
-*/
-public func += (inout left: CGPoint, right: CGVector) {
-  left = left + right
-}
-
-/**
-* Subtracts two CGPoint values and returns the result as a new CGPoint.
-*/
-public func - (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x - right.x, y: left.y - right.y)
-}
-
-/**
-* Decrements a CGPoint with the value of another.
-*/
-public func -= (inout left: CGPoint, right: CGPoint) {
-  left = left - right
-}
-
-/**
-* Subtracts a CGVector from a CGPoint and returns the result as a new CGPoint.
-*/
-public func - (left: CGPoint, right: CGVector) -> CGPoint {
-  return CGPoint(x: left.x - right.dx, y: left.y - right.dy)
-}
-
-/**
-* Decrements a CGPoint with the value of a CGVector.
-*/
-public func -= (inout left: CGPoint, right: CGVector) {
-  left = left - right
-}
-
-/**
-* Multiplies two CGPoint values and returns the result as a new CGPoint.
-*/
-public func * (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x * right.x, y: left.y * right.y)
-}
-
-/**
-* Multiplies a CGPoint with another.
-*/
-public func *= (inout left: CGPoint, right: CGPoint) {
-  left = left * right
-}
-
-/**
-* Multiplies the x and y fields of a CGPoint with the same scalar value and
-* returns the result as a new CGPoint.
-*/
-public func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
-  return CGPoint(x: point.x * scalar, y: point.y * scalar)
-}
-
-/**
-* Multiplies the x and y fields of a CGPoint with the same scalar value.
-*/
-public func *= (inout point: CGPoint, scalar: CGFloat) {
-  point = point * scalar
-}
-
-/**
-* Multiplies a CGPoint with a CGVector and returns the result as a new CGPoint.
-*/
-public func * (left: CGPoint, right: CGVector) -> CGPoint {
-  return CGPoint(x: left.x * right.dx, y: left.y * right.dy)
-}
-
-/**
-* Multiplies a CGPoint with a CGVector.
-*/
-public func *= (inout left: CGPoint, right: CGVector) {
-  left = left * right
-}
-
-/**
-* Divides two CGPoint values and returns the result as a new CGPoint.
-*/
-public func / (left: CGPoint, right: CGPoint) -> CGPoint {
-  return CGPoint(x: left.x / right.x, y: left.y / right.y)
-}
-
-/**
-* Divides a CGPoint by another.
-*/
-public func /= (inout left: CGPoint, right: CGPoint) {
-  left = left / right
-}
-
-/**
-* Divides the x and y fields of a CGPoint by the same scalar value and returns
-* the result as a new CGPoint.
-*/
-public func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
-  return CGPoint(x: point.x / scalar, y: point.y / scalar)
-}
-
-/**
-* Divides the x and y fields of a CGPoint by the same scalar value.
-*/
-public func /= (inout point: CGPoint, scalar: CGFloat) {
-  point = point / scalar
-}
-
-/**
-* Divides a CGPoint by a CGVector and returns the result as a new CGPoint.
-*/
-public func / (left: CGPoint, right: CGVector) -> CGPoint {
-  return CGPoint(x: left.x / right.dx, y: left.y / right.dy)
-}
-
-/**
-* Divides a CGPoint by a CGVector.
-*/
-public func /= (inout left: CGPoint, right: CGVector) {
-  left = left / right
-}
-
-public typealias PointTuple = (x:CGFloat, y:CGFloat)
-
-public func - (left:CGPoint, right: PointTuple) -> CGPoint {
-  return CGPoint(x: left.x - right.x, y: left.y - right.y)
-}
-public func + (left:CGPoint, right: PointTuple) -> CGPoint {
-  return CGPoint(x: left.x + right.x, y: left.y + right.y)
-}
-public func -= (inout left:CGPoint, right: PointTuple) {
-  left = left - right
-}
-public func += (inout left:CGPoint, right: PointTuple) {
-  left = left + right
-}
-
-/**
-* Performs a linear interpolation between two CGPoint values.
+ Performs a linear interpolation between two CGPoint values.
+  :param: start Starting CGPoint
+  :param: end   Ending CGPoint
+  :t: Time
 */
 public func lerp(start start: CGPoint, end: CGPoint, t: CGFloat) -> CGPoint {
   return start + (end - start) * t

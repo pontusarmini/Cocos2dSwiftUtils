@@ -20,22 +20,73 @@
 * THE SOFTWARE.
 */
 
+/**
+A collection of extended functions to the Bool type allowing to easily get random boolean values.
+*/
 
 public extension Bool {
-  /**
-  Random Bool
-  - returns: A random Bool, true or false.
-  */
+/**
+This function returns a random boolean, with 50/50 probability of returning true or false
+
+**Usage:**
+  
+  `let randomBool = Bool.random()`
+
+:returns: A random boolean value, true or false
+
+*/
   public static func random() -> Bool {
     return (arc4random_uniform(2) == 0) ? true : false
   }
-  /**
-  Random Bool with probability
-  - parameter probability: A CGFloat between 0.0-1.0. Lower value = less probability of the function returning true
-  - returns: A random Bool
-  */
+/**
+This function returns a random boolean value with a custom probability of returning true or false
+
+**Usage:**
+  
+  ```
+  //A bool with ≈30% probability of being true
+  let random = Bool.randomWithProbability(0.3)
+  
+  ```
+
+:param: probability  The probability percentage expressed in a double value between 0.0-1.0
+:returns:             A random boolean value
+*/
   public static func randomWithProbability(probability: Double) -> Bool {
     precondition(probability >= 0 && probability < 1.0)
     return CGFloat.random() <= CGFloat(probability)
   }
+/**
+This function lets you mutate an existing boolean variable to a random boolean value
+
+**Usage:**
+
+  ```
+    var myBool = true
+    //Now with a 50-50% probability of being true or false:
+    myBool.random()
+  ```
+*/
+  public mutating func random() {
+    self = Bool.random()
+  }
+  /**
+  This function lets you mutate an existing boolean variable to a random boolean value with a probability parameter
+  
+  **Usage:**
+  
+  ```
+    var myBool = true
+    //Now with only a ≈30% probability of being true:
+    myBool.randomWithProbability(0.3)
+  ```
+  
+  :param: probability  The probability percentage expressed in a double value between 0.0-1.0
+
+  */
+  public mutating func randomWithProbability(probability: Double) {
+    precondition(probability >= 0 && probability < 1.0)
+    self = CGFloat.random() <= CGFloat(probability)
+  }
+
 }
