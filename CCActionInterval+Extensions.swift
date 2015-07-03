@@ -67,67 +67,49 @@ public extension CCActionInterval {
   }
   
   /**
+  This function can be used to repeat an action forever
   
-  Chains a new action to the action (self), effectively creating and returning a CCActionSequence
-  
-  **Example usage:**
-  
-  ```
-  //Chain two actions together
-  myAction.chainedWithAction(anotherAction)
-  
-  ```
-  
-  :param: action The action to chain to the existing action (self)
-  :returns:      A CCActionSequence with the action (self) and an appended CCAction
-  
+  :returns: A CCActionRepeatForever object
   */
-  
-  public func chainedWithAction(action: CCActionInterval) -> CCActionInterval {
-    let s = CCActionSequence(one: self, two: action)
-    return s
+  public var repeatForever:CCActionRepeatForever {
+    return CCActionRepeatForever(action: self)
   }
-  
   
   /**
+  A variable that simply returns `self`. Its only purpose is to add some syntactic sugar to your code. Use only
+  if you feel like it, of course.
   
-  Adds a callback to be executed when the action is done.
-  
-  ####Example usage:
-  
-  ```
-  //With trailing closure syntax
-  let actionWithCallback = CCActionScaleTo(duration: 1.0, scale:10.0).thenDo {
-      print("Now I am super big!")
-  }
-  //Without trailing closure syntax
-  let actionWithCallback = CCActionScaleTo(duration: 1.0, scale:10.0).thenDo({
-      print("Now I am super big!")
-  })
-  //Or
-  myNode.runAction(myAction.thenDo(myCallBack))
+  ####Usage:
   
   ```
+  let rotate = CCActionRotateBy(duration: 0.5, angle: 180)
+  button.runAction(rotate.easedWith(.SineOut).and.delayedWith(0.5))
   
-  :param: block  The callback closure to be executed when the action is done
-  :returns:      A CCActionSequence with the action (self) and an appended CCActionCallBlock
-  
+  ```
   */
   
-  public func thenDo(block: CallBackBlock) -> CCActionInterval {
-    let c = CCActionCallBlock(block: block)
-    let s = CCActionSequence(one: self, two: c)
-    return s
-  }
-  
-  public func delayedWith(delay: CCTime) -> CCActionInterval {
-    let d = CCActionDelay(duration: delay)
-    let s = CCActionSequence(one: self, two: d)
-    return s
-  }
-  public var and:CCActionInterval {
+  override public var and:CCActionInterval {
     return self
   }
+  
+  /**
+  A variable that simply returns `self`. Its only purpose is to add some syntactic sugar to your code. Use only
+  if you feel like it, of course.
+  
+  ####Usage:
+  
+  ```
+  let rotate = CCActionRotateBy(duration: 0.5, angle: 180)
+  let scaleUp = CCActionScaleTo(duration: 0.5, scale: 2.0)
+  let rotateAndScaleUp = rotate.and.then.runAction(scaleUp)
+  button.runAction(rotateAndScaleUp)
+  
+  ```
+  */
+  override public var then:CCActionInterval {
+    return self
+  }
+
   
   /**
   Checks if the action (self) is a CCActionSequence

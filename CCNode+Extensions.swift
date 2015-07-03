@@ -100,7 +100,7 @@ public extension CCNode {
   
   :param: actions An array of CCActions
   */
-  public func runParallelActions(actions: [CCActionFiniteTime]) {
+  public func runActionsSimultaneously(actions: [CCActionFiniteTime]) {
     let spawn = CCActionSpawn(array: actions)
     runAction(spawn)
   }
@@ -110,7 +110,7 @@ public extension CCNode {
   :param: actions An array of CCActions
   :param: block A block of code to run when all of the actions has finished running
   */
-  public func runParallelActions(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
+  public func runActionsSimultaneously(actions: [CCActionFiniteTime], thenDo block: CallBackBlock) {
     let spawn = CCActionSpawn(array: actions)
     let c = CCActionCallBlock(block: block)
     let a = [spawn, c]
@@ -122,7 +122,7 @@ public extension CCNode {
   :param: actions An array of CCActions
   :param: times The number of times to repeat the actions
   */
-  public func runParallelActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int) {
+  public func runActionsSimultaneously(actions: [CCActionFiniteTime], andRepeatTimes times: Int) {
     let spawn = CCActionSpawn(array: actions)
     let repeatAction = CCActionRepeat(action: spawn, times: UInt(times))
     runAction(repeatAction)
@@ -135,7 +135,7 @@ public extension CCNode {
   :param: times The number of times to repeat the actions
   :param: block The callback to run when the actions are done 
   */
-  public func runParallelActions(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenDo block: CallBackBlock) {
+  public func runActionsSimultaneously(actions: [CCActionFiniteTime], andRepeatTimes times: Int, thenDo block: CallBackBlock) {
     let spawn = CCActionSpawn(array: actions)
     let repeatAction = CCActionRepeat(action: spawn, times: UInt(times))
     let c = CCActionCallBlock(block: block)
@@ -150,7 +150,7 @@ public extension CCNode {
   :param: times The number of times to repeat the actions
   :param: block The callback to run when the actions are done
   */
-  public func runParallelActionsAndRepeatForever(actions: [CCActionFiniteTime]) {
+  public func runActionsSimultaneouslyAndRepeatForever(actions: [CCActionFiniteTime]) {
     let spawn = CCActionSpawn(array: actions)
     let repeatAction = CCActionRepeatForever(action: spawn)
 

@@ -29,6 +29,23 @@ myValue = clamp(myValue, min: 50, max: 100) //Now 50
 public func clamp<T:Comparable> (value: T, min: T, max: T ) -> T {
   return Swift.max(min, Swift.min(max, value))
 }
+
+public func doThis(block: CallBackBlock) -> CCActionCallBlock {
+  return CCActionCallBlock(block: block)
+}
+
+public func callBack(block: CallBackBlock) -> CCActionCallBlock {
+  return doThis(block)
+}
+
+public func runBlock(block: CallBackBlock) -> CCActionCallBlock {
+  return doThis(block)
+}
+public func runClosure(block: CallBackBlock) -> CCActionCallBlock {
+  return doThis(block)
+}
+
+
 /**
   An enum used to wrap an action inside a CCActionEase subclass.
 */
